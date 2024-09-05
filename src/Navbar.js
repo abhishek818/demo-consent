@@ -49,13 +49,13 @@ const Navbar = () => {
       {activeTab === 'privacy' && (
         <div className="privacy-content">
           <p>Privacy Notice: We value your privacy. Please provide your consent for data collection.</p>
-          {consentGiven === null ? (
+       	  <p>{consentGiven ? "Thank you for giving consent." : "Consent has been withdrawn."}</p>
             <>
-              <button onClick={handleConsent} className="privacy-btn">Give Consent</button>
-              <button onClick={handleWithdraw} className="privacy-btn">Withdraw Consent</button>
+	      {!consentGiven && <button onClick={handleConsent} className="privacy-btn">Give Consent</button>}
+	      {consentGiven && <button onClick={handleWithdraw} className="privacy-btn">Withdraw Consent</button>}
             </>
           ) : (
-            <p>{consentGiven ? "Thank you for giving consent." : "Consent has been withdrawn."}</p>
+           
           )}
         </div>
       )}
