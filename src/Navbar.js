@@ -30,7 +30,7 @@ const Navbar = () => {
     setConsentGiven(false);
     // You can add more logic here to handle consent withdrawal
     window.dispatchEvent(new Event('withdrawConsent'));
-    alert('Consent withdrawn');
+    console.log('Consent withdrawn');
   };
 
   return (
