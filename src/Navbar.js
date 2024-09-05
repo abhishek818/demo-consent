@@ -54,9 +54,6 @@ const Navbar = () => {
 	      {!consentGiven && <button onClick={handleConsent} className="privacy-btn">Give Consent</button>}
 	      {consentGiven && <button onClick={handleWithdraw} className="privacy-btn">Withdraw Consent</button>}
             </>
-          ) : (
-           
-          )}
         </div>
       )}
     </div>
