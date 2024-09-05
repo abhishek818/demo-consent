@@ -10,14 +10,27 @@ const Navbar = () => {
 
   const [consentGiven, setConsentGiven] = useState(null);
 
+  // Handle consent action
   const handleConsent = () => {
-    // Handle consent logic here
     setConsentGiven(true);
-  };
+    // You can add more logic here to handle consent submission
+    const layer = [];
+  	layer.push({
+  		event: 'SET_CONSENTIUM_DATA',
+  		user_identifier: "Kathirvel",
+  		user_email: "kathirvel@privasapien.com",
+  	});
+	  window.dataLayer = layer;
+    window.dispatchEvent(new Event('dataLayerReady'));
+    console.log('Consent Request Sent.');
+    };
 
+  // Handle withdraw action
   const handleWithdraw = () => {
-    // Handle withdrawal logic here
     setConsentGiven(false);
+    // You can add more logic here to handle consent withdrawal
+    window.dispatchEvent(new Event('withdrawConsent'));
+    alert('Consent withdrawn');
   };
 
   return (
