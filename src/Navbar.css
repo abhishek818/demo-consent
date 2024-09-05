@@ -1,0 +1,197 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    background-color: #e6e6e6;
+    padding: 10px 0;
+    position: relative;
+  }
+  
+  .navbar-link {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+  }
+  
+  .navbar-link:hover {
+    text-decoration: underline;
+  }
+  
+  .privacy-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .privacy-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .privacy-btn {
+    background-color: #4b0082;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .privacy-btn:hover {
+    background-color: #3a0051;
+  }
+  .privacy-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #4b0082;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left:  0;
+    width: 100%;
+    z-index: 1000; /* Ensure it appears on top of other content */
+  }
+  
+  .privacy-banner p {
+    margin: 0 0 10px;
+  }
+  
+  .privacy-btn {
+    background-color: #fff;
+    color: #4b0082;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .privacy-btn:hover {
+    background-color: #e6e6e6;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: center;
+    background-color: #e6e6e6;
+    padding: 10px 0;
+    margin-top: 60px; /* Adjust based on the height of the privacy banner */
+  }
+  
+  .navbar-link {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+  }
+  
+  .navbar-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Navbar styles */
+.navbar {
+    display: flex;
+    justify-content: center;
+    background-color: #e6e6e6;
+    padding: 10px 0;
+  }
+  
+  .navbar-link {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+  }
+  
+  .navbar-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Privacy content styles */
+  .privacy-content {
+    position: absolute;
+    top: 50px; /* Adjust based on your navbar height */
+    right: 10px; /* Adjust as needed */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .privacy-content p {
+    margin: 0 0 10px;
+  }
+  
+  .privacy-btn {
+    background-color: #4b0082;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .privacy-btn:hover {
+    background-color: #3a006e;
+  }
+  
+  /* Navbar styles */
+.navbar {
+    display: flex;
+    justify-content: center;
+    background-color: #e6e6e6;
+    padding: 10px 0;
+  }
+  
+  .navbar-link {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+  }
+  
+  .navbar-link.active {
+    font-weight: bold;
+    color: #4b0082; /* Change color for the active tab */
+  }
+  
+  .navbar-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Privacy content styles */
+  .privacy-content {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px; /* Adjust based on layout */
+  }
+  
+  .privacy-content p {
+    margin: 0 0 10px;
+  }
+  
+  .privacy-btn {
+    background-color: #4b0082;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .privacy-btn:hover {
+    background-color: #3a006e;
+  }
+  
+  
+  
