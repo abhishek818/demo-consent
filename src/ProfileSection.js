@@ -7,7 +7,7 @@ function ProfileSection() {
       <h2>My Profile</h2>
       <div className="form-group">
         <label htmlFor="mobile-number">Mobile Number*</label>
-        <p id="mobile-number">9655327989</p>
+        <p id="mobile-number">9996663331</p>
       </div>
       <div className="form-group">
         <label htmlFor="full-name">Full Name*</label>
