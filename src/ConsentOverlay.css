@@ -18,7 +18,7 @@
     text-align: center;
   }
   
-  button {
+  .consent-give-btn {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
