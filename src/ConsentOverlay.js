@@ -37,11 +37,11 @@ const ConsentOverlay = () => {
 
         {/* Conditionally show buttons based on consent status */}
         {!consentGiven ? (
-          <button className="consent-btn" onClick={handleConsent}>
+          <button className="consent-give-btn consent-btn" onClick={handleConsent}>
             Give Consent
           </button>
         ) : (
-          <button className="withdraw-btn" onClick={handleWithdraw}>
+          <button className="consent-give-btn withdraw-btn" onClick={handleWithdraw}>
             Withdraw Consent
           </button>
         )}
