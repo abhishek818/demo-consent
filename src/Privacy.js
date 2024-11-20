@@ -91,11 +91,11 @@ function Privacy() {
 				const data = await response.json();
 				console.log('Consent successfully saved:', data);
 
+				console.log('Consent Request Sent.');
+				// alert("Thank you for giving consent!");
 				if (overlay) {
 					overlay.remove();
 				}
-				console.log('Consent Request Sent.');
-				// alert("Thank you for giving consent!");
 			} else {
 				console.error('Error saving consent:', response.statusText);
 				if (overlay) {
