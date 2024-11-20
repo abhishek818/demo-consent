@@ -85,14 +85,14 @@ function Privacy() {
 				console.log('Consent successfully saved:', data);
 
 				// Dispatch consent to Consentium
-				const layer = [];
-				layer.push({
-					event: 'SET_CONSENTIUM_DATA',
-					user_identifier: formData.fullName,
-					user_email: formData.email,
-				});
-				window.dataLayer = layer;
-				window.dispatchEvent(new Event('dataLayerReady'));
+				// const layer = [];
+				// layer.push({
+				// 	event: 'SET_CONSENTIUM_DATA',
+				// 	user_identifier: formData.fullName,
+				// 	user_email: formData.email,
+				// });
+				// window.dataLayer = layer;
+				// window.dispatchEvent(new Event('dataLayerReady'));
 				console.log('Consent Request Sent.');
 				// alert("Thank you for giving consent!");
 			} else {
