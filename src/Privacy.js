@@ -1,14 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ProfileSection.css'; // Reuse the existing CSS
 
 function Privacy() {
-    const purposeLabels = [
-        "Sales", "Marketing", "Support", "Consent", "Tech", "Educate", "Product",
-        "Analytics", "HR", "Account management", "Advertisement", "Legal"
-    ];
-
-    const defaultSelectedOptions = purposeLabels.map((_, index) => `purpose-${index}`); // Generate default selected options
-
+    const [purposes, setPurposes] = useState([]);
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
@@ -16,10 +10,26 @@ function Privacy() {
         age: '',
         parentEmail: '', // Stores parent's email if age < 18
         consentGiven: null, // null = no action, true = consent given, false = consent withdrawn
-        selectedOptions: defaultSelectedOptions, // Initialize with all checkboxes selected
+        selectedOptions: [], // Initialize as empty, will be updated dynamically
     });
 
     const [showParentEmail, setShowParentEmail] = useState(false); // Controls visibility of parent's email input
+
+    // Load purposes from sessionStorage on component mount
+    useEffect(() => {
+        const storedPurposes = sessionStorage.getItem("purposes");
+        if (storedPurposes) {
+            const parsedPurposes = JSON.parse(storedPurposes);
+            setPurposes(parsedPurposes);
+
+            // Set default selected options with all purpose IDs
+            const defaultSelected = parsedPurposes.map(purpose => purpose.i);
+            setFormData(prevState => ({
+                ...prevState,
+                selectedOptions: defaultSelected,
+            }));
+        }
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -46,32 +56,24 @@ function Privacy() {
         }
     };
 
-    // Handle consent action
     const handleConsent = async () => {
         setFormData({ ...formData, consentGiven: true });
 
-        const apiUrl = sessionStorage.getItem("apiUrl"); // Retrieve the create consent URL from sessionStorage
-
-        // Prepare body data for the consent request
+        const apiUrl = sessionStorage.getItem("apiUrl");
         const bodyData = {
             application_id: "f5470200-0f84-4e91-b2c6-c2d7e790c54c", // Replace with dynamic value if needed
-            purpose_ids: formData.selectedOptions, // Selected consent options mapped to their IDs
+            purpose_ids: formData.selectedOptions,
             user_identifier: formData.fullName,
             user_email: formData.email,
         };
 
         try {
-            const response = await fetch(apiUrl, { // Use the dynamic API URL
+            const response = await fetch(apiUrl, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "sec-ch-ua": "\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
-                    "sec-ch-ua-mobile": "?0",
-                    "sec-ch-ua-platform": "\"macOS\"",
-                    "Referer": "http://localhost:3000/", // Replace with your actual site URL
-                    "Referrer-Policy": "strict-origin-when-cross-origin",
                 },
-                body: JSON.stringify(bodyData), // Send the data to the backend
+                body: JSON.stringify(bodyData),
             });
 
             if (response.ok) {
@@ -91,39 +93,29 @@ function Privacy() {
                 // alert("Thank you for giving consent!");
             } else {
                 console.error("Error saving consent:", response.statusText);
-                // alert("Failed to save consent");
             }
         } catch (error) {
             console.error("Error occurred while saving consent:", error);
-            // alert("Error occurred while processing consent");
         }
     };
 
-    // Handle withdraw consent action
     const handleWithdrawConsent = async () => {
         setFormData({ ...formData, consentGiven: false });
 
-        const withdrawApiUrl = sessionStorage.getItem("withdrawApiUrl"); // Retrieve the withdraw consent URL from sessionStorage
-
-        // Prepare body data for the withdraw consent request
+        const withdrawApiUrl = sessionStorage.getItem("withdrawApiUrl");
         const bodyData = {
-            application_id: "f5470200-0f84-4e91-b2c6-c2d7e790c54c", // Replace with dynamic value if needed
+            application_id: "f5470200-0f84-4e91-b2c6-c2d7e790c54c",
             user_identifier: formData.fullName,
             user_email: formData.email,
         };
 
         try {
-            const response = await fetch(withdrawApiUrl, { // Use the dynamic API URL
+            const response = await fetch(withdrawApiUrl, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "sec-ch-ua": "\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
-                    "sec-ch-ua-mobile": "?0",
-                    "sec-ch-ua-platform": "\"macOS\"",
-                    "Referer": "http://localhost:3000/", // Replace with your actual site URL
-                    "Referrer-Policy": "strict-origin-when-cross-origin",
                 },
-                body: JSON.stringify(bodyData), // Send the data to withdraw consent
+                body: JSON.stringify(bodyData),
             });
 
             if (response.ok) {
@@ -132,14 +124,11 @@ function Privacy() {
                 // Trigger withdraw consent event
                 window.dispatchEvent(new Event("withdrawConsent"));
                 console.log("Consent withdrawn");
-                // alert("Your consent has been withdrawn.");
             } else {
                 console.error("Error withdrawing consent:", response.statusText);
-                // alert("Failed to withdraw consent");
             }
         } catch (error) {
             console.error("Error occurred while withdrawing consent:", error);
-            // alert("Error occurred while processing withdraw consent");
         }
     };
 
@@ -154,7 +143,7 @@ function Privacy() {
                 <label htmlFor="mobile-number">Mobile Number*</label>
                 <p id="mobile-number">9996663331</p>
             </div>
-            <div className="form-group">
+                 <div className="form-group">
                 <label htmlFor="full-name">Full Name*</label>
                 <input
                     type="text"
@@ -204,12 +193,11 @@ function Privacy() {
                     placeholder="Enter your age"
                     value={formData.age}
                     onChange={handleChange}
-                    onBlur={handleAgeBlur} // Trigger the blur event to show parent's email if age < 18
+                    onBlur={handleAgeBlur}
                     required
                 />
             </div>
 
-            {/* Conditionally Show Parent's Email if Age < 18 and onBlur Triggered */}
             {showParentEmail && formData.age < 18 && (
                 <div className="form-group">
                     <label htmlFor="parent-email">Parent's Email*</label>
@@ -225,7 +213,6 @@ function Privacy() {
                 </div>
             )}
 
-            {/* Purpose Selection */}
             <h3>Select the purposes for which we need your consent:</h3>
             <div className="form-group" style={{
                 display: 'flex',
@@ -241,43 +228,71 @@ function Privacy() {
                     borderRadius: '8px',
                     width: '300px'
                 }}>
-                    {purposeLabels.map((label, index) => (
-                        <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
-                            <input
-                                type="checkbox"
-                                value={`purpose-${index}`}
-                                checked={formData.selectedOptions.includes(`purpose-${index}`)} // Ensure checkbox reflects state
-                                onChange={handleCheckboxChange}
-                                style={{ width: 'auto', accentColor: 'indigo', marginRight: '8px' }}
-                            />
-                            <label style={{ marginLeft: '8px' }}>{label}</label>
-                        </div>
-                    ))}
+                {purposes.map((purpose, index) => (
+                    <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+                        <input
+                            type="checkbox"
+                            value={purpose.i}
+                            checked={formData.selectedOptions.includes(purpose.i)}
+                            onChange={handleCheckboxChange}
+                            style={{ width: 'auto', accentColor: 'indigo', marginRight: '8px' }}
+                        />
+                        <label style={{ marginLeft: '8px' }}>{purpose.n}</label>
+                    </div>
+                ))}
                 </form>
             </div>
 
             {/* Buttons to submit consent or withdraw */}
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <button
-                    type="button"
-                    onClick={handleConsent}
-                    style={{ padding: '10px 20px', marginRight: '10px' }}>
-                    Give Consent
-                </button>
-                <button
-                    type="button"
-                    onClick={handleWithdrawConsent} 
-                    style={{ padding: '10px 20px' }}>
-                    Withdraw Consent
-                </button>
-            </div>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+    <button
+        type="button"
+        onClick={handleConsent}
+        style={{
+            padding: '12px 24px',
+            marginRight: '12px',
+            backgroundColor: '#4CAF50', // Green background
+            color: '#fff', // White text
+            border: 'none',
+            borderRadius: '6px',
+            cursor: 'pointer',
+            fontSize: '16px',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            transition: 'all 0.3s ease',
+        }}
+        onMouseEnter={(e) => e.target.style.backgroundColor = '#45A049'} // Hover effect
+        onMouseLeave={(e) => e.target.style.backgroundColor = '#4CAF50'}
+    >
+        Give Consent
+    </button>
+    <button
+        type="button"
+        onClick={handleWithdrawConsent}
+        style={{
+            padding: '12px 24px',
+            backgroundColor: '#F44336', // Red background
+            color: '#fff', // White text
+            border: 'none',
+            borderRadius: '6px',
+            cursor: 'pointer',
+            fontSize: '16px',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            transition: 'all 0.3s ease',
+        }}
+        onMouseEnter={(e) => e.target.style.backgroundColor = '#D32F2F'} // Hover effect
+        onMouseLeave={(e) => e.target.style.backgroundColor = '#F44336'}
+    >
+        Withdraw Consent
+    </button>
+</div>
+
 
             {/* Display Consent Status */}
             {formData.consentGiven !== null && (
-                <p style={{ marginTop: '20px', fontWeight: 'bold' }}>
+                <p>
                     {formData.consentGiven
-                        ? 'You have given your consent.'
-                        : 'You have withdrawn your consent.'}
+                        ? "You have given your consent."
+                        : "You have withdrawn your consent."}
                 </p>
             )}
         </div>
