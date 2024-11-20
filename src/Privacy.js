@@ -81,14 +81,14 @@ function Privacy() {
                 window.dataLayer = layer;
                 window.dispatchEvent(new Event("dataLayerReady"));
                 console.log("Consent Request Sent.");
-                alert("Thank you for giving consent!");
+                // alert("Thank you for giving consent!");
             } else {
                 console.error("Error saving consent:", response.statusText);
-                alert("Failed to save consent");
+                // alert("Failed to save consent");
             }
         } catch (error) {
             console.error("Error occurred while saving consent:", error);
-            alert("Error occurred while processing consent");
+            // alert("Error occurred while processing consent");
         }
     };
 
@@ -125,14 +125,14 @@ function Privacy() {
                 // Trigger withdraw consent event
                 window.dispatchEvent(new Event("withdrawConsent"));
                 console.log("Consent withdrawn");
-                alert("Your consent has been withdrawn.");
+                // alert("Your consent has been withdrawn.");
             } else {
                 console.error("Error withdrawing consent:", response.statusText);
-                alert("Failed to withdraw consent");
+                // alert("Failed to withdraw consent");
             }
         } catch (error) {
             console.error("Error occurred while withdrawing consent:", error);
-            alert("Error occurred while processing withdraw consent");
+            // alert("Error occurred while processing withdraw consent");
         }
     };
 
