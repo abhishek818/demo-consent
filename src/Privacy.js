@@ -6,9 +6,13 @@ function Privacy() {
         fullName: '',
         email: '',
         gender: '',
+        age: '',
+        parentEmail: '', // Stores parent's email if age < 18
         consentGiven: null, // null = no action, true = consent given, false = consent withdrawn
         selectedOptions: [], // Holds the selected consent options
     });
+
+    const [showParentEmail, setShowParentEmail] = useState(false); // Controls visibility of parent's email input
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -27,6 +31,12 @@ function Privacy() {
 
             return { ...prevState, selectedOptions: updatedSelectedOptions };
         });
+    };
+
+    const handleAgeBlur = () => {
+        if (formData.age && formData.age < 18) {
+            setShowParentEmail(true); // Show parent's email input after age blur if age < 18
+        }
     };
 
     const handleConsent = () => {
@@ -90,22 +100,50 @@ function Privacy() {
                 </select>
             </div>
 
+            {/* Age and Parent's Email Logic */}
+            <div className="form-group">
+                <label htmlFor="age">Age*</label>
+                <input
+                    type="number"
+                    id="age"
+                    name="age"
+                    placeholder="Enter your age"
+                    value={formData.age}
+                    onChange={handleChange}
+                    onBlur={handleAgeBlur} // Trigger the blur event to show parent's email if age < 18
+                    required
+                />
+            </div>
+
+            {/* Conditionally Show Parent's Email if Age < 18 and onBlur Triggered */}
+            {showParentEmail && formData.age < 18 && (
+                <div className="form-group">
+                    <label htmlFor="parent-email">Parent's Email*</label>
+                    <input
+                        type="email"
+                        id="parent-email"
+                        name="parentEmail"
+                        placeholder="Parent's Email"
+                        value={formData.parentEmail}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+            )}
+
             {/* Additional Consent Options */}
             <div className="form-group" style={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                // height: '100vh'
             }}>
                 <form style={{
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'flex-start',
-                    // backgroundColor: '#fff',
                     padding: '20px',
                     borderRadius: '8px',
-                    // boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)',
                     width: '300px'
                 }}>
                     <label style={{ fontSize: '14px', fontWeight: 'bold', marginBottom: '12px' }}>
@@ -123,7 +161,7 @@ function Privacy() {
                                 type="checkbox"
                                 value={label.toLowerCase().replace(' ', '_')}
                                 onChange={handleCheckboxChange}
-                                style={{ width: 'auto',accentColor: 'indigo', marginRight: '8px' }}
+                                style={{ width: 'auto', accentColor: 'indigo', marginRight: '8px' }}
                             />
                             <label style={{ fontSize: '12px' }}>{label}</label>
                         </div>
@@ -142,9 +180,6 @@ function Privacy() {
                     </button>
                 </form>
             </div>
-
-
-
 
             {/* Consent Buttons */}
             <div className="form-group">
