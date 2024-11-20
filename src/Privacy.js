@@ -11,6 +11,7 @@ function Privacy() {
 	const [formData, setFormData] = useState({
 		fullName: '',
 		email: '',
+		mobileNumber: '9996663331',
 		gender: '',
 		age: '',
 		parentEmail: '', // Stores parent's email if age < 18
@@ -82,36 +83,18 @@ function Privacy() {
 				body: JSON.stringify(bodyData),
 			});
 
-			// Remove the consent overlay (if present)
-			if (overlay) {
-				overlay.remove();
-			}
-
-
 			if (response.ok) {
 				const data = await response.json();
 				console.log('Consent successfully saved:', data);
 				setConsentId(data.uuid);
-				console.log('Consent Request Sent.');
-				// alert("Thank you for giving consent!");
-				if (overlay) {
-					overlay.remove();
-				}
 			} else {
 				console.error('Error saving consent:', response.statusText);
-				if (overlay) {
-					overlay.remove();
-				}
 			}
 		} catch (error) {
 			console.error('Error occurred while saving consent:', error);
-			if (overlay) {
-				overlay.remove();
-			}
-
-		}
-		if (overlay) {
-			overlay.remove();
+		} finally {
+			// Remove the overlay at the end, after all other actions
+			if (overlay) overlay.remove();
 		}
 	};
 
@@ -159,8 +142,17 @@ function Privacy() {
 			<p>Please review our privacy policy. Use the buttons below to give or withdraw your consent. You can also update your profile information.</p>
 			<div className="form-group">
 				<label htmlFor="mobile-number">Mobile Number*</label>
-				<p id="mobile-number">9996663331</p>
+				<input
+					type="tel"
+					id="mobile-number"
+					name="mobileNumber"
+					placeholder="Enter your mobile number"
+					value={formData.mobileNumber}
+					onChange={handleChange}
+					required
+				/>
 			</div>
+			
 			<div className="form-group">
 				<label htmlFor="full-name">Full Name*</label>
 				<input
