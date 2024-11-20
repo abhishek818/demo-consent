@@ -71,6 +71,7 @@ function Privacy() {
 			user_email: userEmail,
 		};
 
+		const overlay = document.getElementById('consent-overlay');
 		try {
 			const response = await fetch(apiUrl, {
 				method: 'POST',
@@ -80,26 +81,36 @@ function Privacy() {
 				body: JSON.stringify(bodyData),
 			});
 
+			// Remove the consent overlay (if present)
+			if (overlay) {
+				overlay.remove();
+			}
+		
+
 			if (response.ok) {
 				const data = await response.json();
 				console.log('Consent successfully saved:', data);
 
-				// Dispatch consent to Consentium
-				// const layer = [];
-				// layer.push({
-				// 	event: 'SET_CONSENTIUM_DATA',
-				// 	user_identifier: formData.fullName,
-				// 	user_email: formData.email,
-				// });
-				// window.dataLayer = layer;
-				// window.dispatchEvent(new Event('dataLayerReady'));
+				if (overlay) {
+					overlay.remove();
+				}
 				console.log('Consent Request Sent.');
 				// alert("Thank you for giving consent!");
 			} else {
 				console.error('Error saving consent:', response.statusText);
+				if (overlay) {
+					overlay.remove();
+				}
 			}
 		} catch (error) {
 			console.error('Error occurred while saving consent:', error);
+			if (overlay) {
+				overlay.remove();
+			}
+			
+		}
+		if (overlay) {
+			overlay.remove();
 		}
 	};
 
