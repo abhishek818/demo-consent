@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 import './ProfileSection.css'; // Reuse the existing CSS
 
 function Privacy() {
+    const purposeLabels = [
+        "Sales", "Marketing", "Support", "Consent", "Tech", "Educate", "Product",
+        "Analytics", "HR", "Account management", "Advertisement", "Legal"
+    ];
+
+    const defaultSelectedOptions = purposeLabels.map((_, index) => `purpose-${index}`); // Generate default selected options
+
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
@@ -9,7 +16,7 @@ function Privacy() {
         age: '',
         parentEmail: '', // Stores parent's email if age < 18
         consentGiven: null, // null = no action, true = consent given, false = consent withdrawn
-        selectedOptions: [], // Holds the selected consent options
+        selectedOptions: defaultSelectedOptions, // Initialize with all checkboxes selected
     });
 
     const [showParentEmail, setShowParentEmail] = useState(false); // Controls visibility of parent's email input
@@ -234,14 +241,12 @@ function Privacy() {
                     borderRadius: '8px',
                     width: '300px'
                 }}>
-                    {[
-                        "Sales", "Marketing", "Support", "Consent", "Tech", "Educate", "Product",
-                        "Analytics", "HR", "Account management", "Advertisement", "Legal"
-                    ].map((label, index) => (
+                    {purposeLabels.map((label, index) => (
                         <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
                             <input
                                 type="checkbox"
                                 value={`purpose-${index}`}
+                                checked={formData.selectedOptions.includes(`purpose-${index}`)} // Ensure checkbox reflects state
                                 onChange={handleCheckboxChange}
                                 style={{ width: 'auto', accentColor: 'indigo', marginRight: '8px' }}
                             />
