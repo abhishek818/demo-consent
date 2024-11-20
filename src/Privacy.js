@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './ProfileSection.css'; // Reuse the existing CSS
 
 function Privacy() {
+    const applicationId = sessionStorage.getItem("applicationId");
+    // Set default values if user hasn't provided them
+    const defaultUserEmail = "kathirvel@privasapien.com";
+    const defaultUserIdentifier = "Kathirvel";
     const [purposes, setPurposes] = useState([]);
     const [formData, setFormData] = useState({
         fullName: '',
@@ -60,11 +64,13 @@ function Privacy() {
         setFormData({ ...formData, consentGiven: true });
 
         const apiUrl = sessionStorage.getItem("apiUrl");
+        const userEmail = formData.email || defaultUserEmail;
+        const userIdentifier = formData.fullName || defaultUserIdentifier;
         const bodyData = {
-            application_id: "f5470200-0f84-4e91-b2c6-c2d7e790c54c", // Replace with dynamic value if needed
+            application_id: applicationId,
             purpose_ids: formData.selectedOptions,
-            user_identifier: formData.fullName,
-            user_email: formData.email,
+            user_identifier: userIdentifier,
+            user_email: userEmail,
         };
 
         try {
@@ -103,10 +109,12 @@ function Privacy() {
         setFormData({ ...formData, consentGiven: false });
 
         const withdrawApiUrl = sessionStorage.getItem("withdrawApiUrl");
+        const userEmail = formData.email || defaultUserEmail;
+        const userIdentifier = formData.fullName || defaultUserIdentifier;
         const bodyData = {
-            application_id: "f5470200-0f84-4e91-b2c6-c2d7e790c54c",
-            user_identifier: formData.fullName,
-            user_email: formData.email,
+            application_id: applicationId,
+            user_identifier: userIdentifier,
+            user_email: userEmail,
         };
 
         try {
