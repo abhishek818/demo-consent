@@ -128,7 +128,7 @@ function Privacy() {
 				const data = await response.json();
 				console.log('Consent successfully withdrawn:', data);
 				// Trigger withdraw consent event
-				window.dispatchEvent(new Event('withdrawConsent'));
+				// window.dispatchEvent(new Event('withdrawConsent'));
 				console.log('Consent withdrawn');
 			} else {
 				console.error('Error withdrawing consent:', response.statusText);
