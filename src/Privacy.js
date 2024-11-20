@@ -147,6 +147,7 @@ function Privacy() {
 			console.error('Error occurred while withdrawing consent:', error);
 		} finally {
 			// Remove the overlay at the end, after all other actions
+			console.log("finally");
 			if (overlay) overlay.remove();
 		}
 	};
