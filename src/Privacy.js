@@ -7,6 +7,7 @@ function Privacy() {
 	const defaultUserEmail = 'kathirvel@privasapien.com';
 	const defaultUserIdentifier = 'Kathirvel';
 	const [purposes, setPurposes] = useState([]);
+	const [consentId, setConsentId] = useState(null);
 	const [formData, setFormData] = useState({
 		fullName: '',
 		email: '',
@@ -85,12 +86,12 @@ function Privacy() {
 			if (overlay) {
 				overlay.remove();
 			}
-		
+
 
 			if (response.ok) {
 				const data = await response.json();
 				console.log('Consent successfully saved:', data);
-
+				setConsentId(data.uuid);
 				console.log('Consent Request Sent.');
 				// alert("Thank you for giving consent!");
 				if (overlay) {
@@ -107,7 +108,7 @@ function Privacy() {
 			if (overlay) {
 				overlay.remove();
 			}
-			
+
 		}
 		if (overlay) {
 			overlay.remove();
@@ -117,15 +118,14 @@ function Privacy() {
 	const handleWithdrawConsent = async () => {
 		setFormData({ ...formData, consentGiven: false });
 
-		const withdrawApiUrl = sessionStorage.getItem('withdrawApiUrl');
-		const userEmail = formData.email || defaultUserEmail;
-		const userIdentifier = formData.fullName || defaultUserIdentifier;
+		const withdrawApiUrl = sessionStorage.getItem('withdrawApiUrl'); // Ensure the correct API URL is retrieved
 		const bodyData = {
+			consent_id: consentId, // The consent ID from the previous request
 			application_id: applicationId,
-			user_identifier: userIdentifier,
-			user_email: userEmail,
+			purposes: formData.selectedOptions, // Use selected options (purposes) from the state
 		};
 
+		const overlay = document.getElementById('consent-overlay');
 		try {
 			const response = await fetch(withdrawApiUrl, {
 				method: 'POST',
@@ -138,16 +138,19 @@ function Privacy() {
 			if (response.ok) {
 				const data = await response.json();
 				console.log('Consent successfully withdrawn:', data);
-				// Trigger withdraw consent event
-				// window.dispatchEvent(new Event('withdrawConsent'));
+				// Trigger withdraw consent event if necessary
 				console.log('Consent withdrawn');
 			} else {
 				console.error('Error withdrawing consent:', response.statusText);
 			}
 		} catch (error) {
 			console.error('Error occurred while withdrawing consent:', error);
+		} finally {
+			// Remove the overlay at the end, after all other actions
+			if (overlay) overlay.remove();
 		}
 	};
+	
 
 	return (
 		<div className="profile-section">
