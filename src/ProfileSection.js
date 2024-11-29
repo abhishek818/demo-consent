@@ -25,8 +25,7 @@ function ProfileSection() {
           <option value="other">Other</option>
         </select>
       </div>
-      {/* Add other form fields here */}
-      <a href="#" className="edit-btn">Edit</a>
+    
     </div>
   );
 }

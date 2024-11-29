@@ -139,7 +139,9 @@ function Privacy() {
 	return (
 		<div className="profile-section">
 			<h2>Privacy Policy</h2>
-			<p>Please review our privacy policy. Use the buttons below to give or withdraw your consent. You can also update your profile information.</p>
+			<h5>Please review our privacy policy. Use the buttons below to give or withdraw your consent. You can also update your profile information.</h5>
+	<section className='form'>
+	<div className='container'>
 			<div className="form-group">
 				<label htmlFor="mobile-number">Mobile Number*</label>
 				<input
@@ -152,7 +154,6 @@ function Privacy() {
 					required
 				/>
 			</div>
-			
 			<div className="form-group">
 				<label htmlFor="full-name">Full Name*</label>
 				<input
@@ -165,6 +166,8 @@ function Privacy() {
 					required
 				/>
 			</div>
+			</div>
+			<div className='container'>
 			<div className="form-group">
 				<label htmlFor="email">Email*</label>
 				<input
@@ -192,8 +195,10 @@ function Privacy() {
 					<option value="other">Other</option>
 				</select>
 			</div>
+			</div>
 
 			{/* Age and Parent's Email Logic */}
+			<div className='container'>
 			<div className="form-group">
 				<label htmlFor="age">Age*</label>
 				<input
@@ -207,9 +212,10 @@ function Privacy() {
 					required
 				/>
 			</div>
-
+</div>
+	</section>
 			{showParentEmail && formData.age < 18 && (
-				<div className="form-group">
+				<div className="form-group" style={{padding:'0px 30px'}}>
 					<label htmlFor="parent-email">Parent's Email*</label>
 					<input
 						type="email"
@@ -218,29 +224,20 @@ function Privacy() {
 						placeholder="Parent's Email"
 						value={formData.parentEmail}
 						onChange={handleChange}
-						required
+						required  style={{alignItems:'flex-start', display:'flex',}}
 					/>
 				</div>
 			)}
 
-			<h3>Select the purposes for which we need your consent:</h3>
-			<div
-				className="form-group"
-				style={{
-					display: 'flex',
-					justifyContent: 'center',
-					alignItems: 'center',
-				}}
-			>
+			<h5>Select the purposes for which we need your consent:</h5>
+		<div>
 				<form
 					style={{
 						display: 'flex',
-						flexDirection: 'column',
-						justifyContent: 'center',
-						alignItems: 'flex-start',
-						padding: '20px',
-						borderRadius: '8px',
-						width: '300px',
+						flexDirection: 'row',
+						gap:'10px',
+						padding: '8px',
+					    
 					}}
 				>
 					{purposes.map((purpose, index) => (
@@ -253,7 +250,7 @@ function Privacy() {
 								value={purpose.i}
 								checked={formData.selectedOptions.includes(purpose.i)}
 								onChange={handleCheckboxChange}
-								style={{ width: 'auto', accentColor: 'indigo', marginRight: '8px' }}
+								style={{ width: 'auto', accentColor: 'indigo', marginRight: '4px' }}
 							/>
 							<label style={{ marginLeft: '8px' }}>{purpose.n}</label>
 						</div>
