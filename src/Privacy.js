@@ -65,12 +65,16 @@ function Privacy() {
 
 		const apiUrl = sessionStorage.getItem('apiUrl');
 		const userEmail = formData.email || defaultUserEmail;
+		const userMobile = formData.mobileNumber;
+		const userage = formData.age;
 		const userIdentifier = formData.fullName || defaultUserIdentifier;
 		const bodyData = {
 			application_id: applicationId,
 			purpose_ids: formData.selectedOptions,
 			user_identifier: userIdentifier,
 			user_email: userEmail,
+			user_contact: userMobile,
+			age: userage,
 		};
 
 		const overlay = document.getElementById('consent-overlay');
