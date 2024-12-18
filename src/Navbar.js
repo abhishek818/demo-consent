@@ -17,56 +17,56 @@ const Navbar = () => {
 				className={`navbar-link ${activeTab === 'home' ? 'active' : ''}`}
 				onClick={() => handleTabChange('home')}
 			>
-				My Profile
+				Account Dashboard
 			</Link>
 			<a
 				href="#"
-				className={`navbar-link ${activeTab === 'car' ? 'active' : ''}`}
-				onClick={() => handleTabChange('car')}
+				className={`navbar-link ${activeTab === 'loan' ? 'active' : ''}`}
+				onClick={() => handleTabChange('loan')}
 			>
-				Car Enquiries/Booking
+				Loan Applications
 			</a>
 			<a
 				href="#"
-				className={`navbar-link ${activeTab === 'service' ? 'active' : ''}`}
-				onClick={() => handleTabChange('service')}
+				className={`navbar-link ${activeTab === 'bill-payments' ? 'active' : ''}`}
+				onClick={() => handleTabChange('bill-payments')}
 			>
-				Service Bookings
+				Bill Payments
 			</a>
 			<a
 				href="#"
-				className={`navbar-link ${activeTab === 'loyalty' ? 'active' : ''}`}
-				onClick={() => handleTabChange('loyalty')}
+				className={`navbar-link ${activeTab === 'banking-products' ? 'active' : ''}`}
+				onClick={() => handleTabChange('banking-products')}
 			>
-				Loyalty/Rewards
+				Banking Products
+			</a>
+			<a
+				href="#"
+				className={`navbar-link ${activeTab === 'account-settings' ? 'active' : ''}`}
+				onClick={() => handleTabChange('account-settings')}
+			>
+				Account Settings
 			</a>
 			<a
 				href="#"
 				className={`navbar-link ${activeTab === 'accessories' ? 'active' : ''}`}
 				onClick={() => handleTabChange('accessories')}
 			>
-				Maruti Suzuki Genuine Accessories
-			</a>
-			<a
-				href="#"
-				className={`navbar-link ${activeTab === 'config' ? 'active' : ''}`}
-				onClick={() => handleTabChange('config')}
-			>
-				My Configurations
+				Canara Bank Services
 			</a>
 			<Link
 				to="/privacy"
 				className={`navbar-link ${activeTab === 'privacy' ? 'active' : ''}`}
 				onClick={() => handleTabChange('privacy')}
 			>
-				Privacy
+				Privacy & Security
 			</Link>
 			<a
 				href="#"
-				className={`navbar-link ${activeTab === 'package' ? 'active' : ''}`}
-				onClick={() => handleTabChange('package')}
+				className={`navbar-link ${activeTab === 'premium-banking' ? 'active' : ''}`}
+				onClick={() => handleTabChange('premium-banking')}
 			>
-				Customer Convenience Package
+				Premium Banking Services
 			</a>
 		</div>
 	);
