@@ -68,7 +68,6 @@ function Privacy() {
 		const userMobile = formData.mobileNumber;
 		const userage = formData.age;
 		const userIdentifier = formData.fullName || defaultUserIdentifier;
-		const parentEmail = formData.parentEmail || "";
 		const bodyData = {
 			application_id: applicationId,
 			purpose_ids: formData.selectedOptions,
@@ -76,7 +75,6 @@ function Privacy() {
 			user_email: userEmail,
 			user_contact: userMobile,
 			age: userage,
-			parent_email: parentEmail,
 		};
 
 		const overlay = document.getElementById('consent-overlay');
@@ -215,6 +213,18 @@ function Privacy() {
 					value={formData.age}
 					onChange={handleChange}
 					onBlur={handleAgeBlur}
+					required
+				/>
+			</div>
+			<div className="form-group">
+				<label htmlFor="full-name">Account Number*</label>
+				<input
+					type="text"
+					id="number"
+					name="number"
+					placeholder="Enter your Account Number"
+					value={formData.number}
+					onChange={handleChange}
 					required
 				/>
 			</div>
